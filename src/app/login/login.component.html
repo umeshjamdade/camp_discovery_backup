@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <img src="assets/image/img01.png" class="top-image"/>
+    <div class="col-md-6 login-window-middle">
+      <div class="login-panel card panel-default">
+        <div class="card-block form-center login-background">
+          <form role="form" [formGroup]="loginForm" class="login-form-top">
+            <fieldset>
+              <!--<div class="form-group" *ngFor="let formsData of loginFormData; let i = index">-->
+                <!--<Input-text [formControlName]="formsData.formControlName" [placeholder]="formsData.placeholder"  [name]="formsData.name" [type]="formsData.type" ngDefaultControl [class]="'form-control input-size'" [require]="'required'"></Input-text>-->
+              <!--</div>-->
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon input-group-css"  id="basic-addon1"><i class="fa fa-user fa-icon-color" aria-hidden="true"></i></span>
+                  <input formControlName="email" placeholder="Username"  name="email" type="text" ngDefaultControl class="form-control input-size" require="required" aria-describedby="basic-addon1"
+                         [ngClass]="{'has-error': ((!loginForm.controls.email.valid)
+                           && (loginForm.controls.email.touched))}">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon input-group-css" id="basic-addon2"><i class="fa fa-lock fa-icon-color" aria-hidden="true"></i></span>
+                  <input formControlName="password" placeholder="Password"  name="password" type="password" ngDefaultControl class="form-control input-size" require="required" aria-describedby="basic-addon1"
+                         [ngClass]="{'has-error': ((!loginForm.controls.password.valid)
+                           && (loginForm.controls.password.touched))}">
+                </div>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                </label>
+                <label class="forgotPasswordlabel">
+                  <a routerLink="/signup">
+                    Forgot Password?
+                  </a>
+                </label>
+              </div>
+              <!-- Change this to a button or input when using this as a form -->
+              <button type="submit" [disabled]="!loginForm.valid" class="btn btn-lg btn-block btn-custom-css login-btn-custom-css" (click)="loginUser(loginForm)">Login</button>
+              <div class="signup-text">
+                <span>Don't have an account?</span><span class="signup-link"><a routerLink="/signup">Sign Up!</a></span>
+              </div>
+              <!--<a type="submit" [disabled]="!loginForm.valid" class="btn btn-lg btn-success btn-block" routerLink="/dashboard/home">Login</a>-->
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

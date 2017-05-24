@@ -1,0 +1,98 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="">
+    <div class="navbar-header row">
+      <div class="side-bar-size campdiscovery-background">
+        <a class="navbar-brand" href="/dashboard/home">CampDiscovery</a>
+        <popover-content #myPopover placement="bottom" [closeOnClickOutside]="true">
+          <div class="padding-popover bottom-color" (click)="openGroup('addChild')">Add Child</div>
+          <div class="padding-popover" (click)="openGroup('addGroup')">Add Group</div>
+        </popover-content>
+
+      </div>
+      <div class="top-content-size right-align">
+        <img src="assets/image/plusIcon.png" title="Add child or Group" [popover]="myPopover" class="top-add-child"/>
+        <span class="circle-alpha" title="User Profile" (click)="open(profile)">{{UserFirstCharacter}}</span>
+        <!--<img src="assets/image/employee.png" (click)="open(profile)" style="width: 2.2rem; height: 2rem; cursor: pointer;    margin-left: 20px;-->
+        <!--margin-right: 20px;"/>-->
+        <a class="navbar-brand" href="#">{{UserFirstName}}</a>
+        <img src="assets/image/turnOff1.png" title="Logout" routerLink="/login" class="top-add-child"/>
+      </div>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="side-bar-size sidebar">
+      <ul class="nav nav-sidebar" id="sidebar">
+        <li class="nav-item" routerLinkActive="active"><a class="nav-link" (click)="sideNavClick('dashboard')" routerLink="/dashboard/home"><i class="fa fa-university" aria-hidden="true"></i>
+          <span class="side-bar-name">Dashboard</span> <span class="fa fa-color fa-chevron-right"></span></a></li>
+        <li class="nav-item" routerLinkActive="active"><a routerLinkActive="active" class="nav-link" [routerLink]="['/dashboard/progress', allKids[0].PatientID]" (click)="sideNavClick('kids')"> <i class="fa fa-user-o" aria-hidden="true"></i>
+          <span class="side-bar-name">Kids</span> <span *ngIf="clicked == 'kids'" class="fa fa-chevron-down fa-color"></span> <span *ngIf="clicked != 'kids'" class="fa fa-color fa-chevron-right"></span></a>
+          <ul *ngIf="clicked == 'kids'" id="nav" class="sublist-size">
+            <li class="nav-item" routerLinkActive="activate" *ngFor="let kid of allKids"><a [routerLink]="['/dashboard/progress', kid.PatientID]" class="nav-link kid-list" (click)="subsideNavClick(kid.name)"> {{kid.FirstName}} </a></li>
+          </ul>
+        </li>
+        <li class="nav-item" routerLinkActive="active"><a [routerLink]="['/dashboard/group-progress', allGroups[0].GroupID]" class="nav-link" (click)="sideNavClick('group')"><i class="fa fa-users" aria-hidden="true"></i>
+          <span class="side-bar-name">Group</span> <span *ngIf="clicked == 'group'" class="fa fa-color fa-chevron-down"></span> <span *ngIf="clicked != 'group'" class="fa fa-color fa-chevron-right"></span></a>
+          <ul *ngIf="clicked == 'group'" routerLinkActive="show" class="sublist-size">
+            <li class="nav-item" routerLinkActive="activate" *ngFor="let group of allGroups"><a [routerLink]="['/dashboard/group-progress', group.GroupID]"  class="nav-link kid-list" (click)="subsideNavClick(group.GroupName)"> {{group.GroupName}} </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="content-size main dashboard-background">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+
+<!-- edit Profile Modal-->
+<ng-template #profile let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Profile</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" class="form-center" role="form" novalidate (submit)="addChild()">
+      <fieldset>
+        <div class="form-group">
+          <label>First Name</label>
+          <input formControlName="firstName" class="form-control" name="firstname" [ngClass]="{'has-error': ((!editForm.controls.firstName.valid)
+                           && (editForm.controls.firstName.touched))}" type="text">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input formControlName="lastName" class="form-control" name="lastname" [ngClass]="{'has-error': ((!editForm.controls.lastName.valid)
+                           && (editForm.controls.lastName.touched))}"  type="text">
+        </div>
+        <div class="form-group">
+          <label>Organization</label>
+          <input formControlName="organization" class="form-control" name="organization" [ngClass]="{'has-error': ((!editForm.controls.organization.valid)
+                           && (editForm.controls.organization.touched))}"  type="text">
+        </div>
+        <label (click)="changePassword()" class="change-password-label">Change Password</label>
+        <div *ngIf="show">
+          <div class="form-group">
+            <label>New password</label>
+            <input formControlName="password" class="form-control" name="password" [ngClass]="{'has-error': ((!editForm.controls.password.valid)
+                             && (editForm.controls.password.touched))}"  type="password">
+          </div>
+          <div class="form-group">
+            <label>Confirm password</label>
+            <input formControlName="password" class="form-control" name="password" [ngClass]="{'has-error': ((!editForm.controls.password.valid)
+                             && (editForm.controls.password.touched))}"  type="password">
+          </div>
+        </div>
+        <br>
+        <!-- Change this to a button or input when using this as a form -->
+        <button type="submit" class="btn btn-lg btn-primary btn-block">Save</button>
+      </fieldset>
+    </form>
+  </div>
+</ng-template>

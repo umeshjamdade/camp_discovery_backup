@@ -1,0 +1,46 @@
+.circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  font-size: 50px;
+  color: #827777;
+  line-height: 140px;
+  text-align: center;
+  background: rgb(245, 245, 245);
+  border-style: dashed;
+  cursor: pointer;
+}
+.add-group {
+  font-size: 50px;
+  color: #827777;
+  line-height: 215px;
+  text-align: center;
+  background: rgb(245, 245, 245);
+  border-style: dashed;
+  margin-left: auto;
+  cursor:pointer;
+}
+.panel-margin {
+  margin-left: 4%;
+  margin-right: 4%;
+}
+.card-size {
+  padding: 5%;
+  width: 16rem;
+}
+.card-text {
+  text-align: center;
+  padding: 5%;
+}
+.chart-space {
+  margin-right: 2%;
+  margin-top: 2%;
+}
+.card-group-text {
+  text-align: center;
+  padding: 2%;
+}
+.dropdown-menu {
+  min-width: 23.4rem;
+}
+

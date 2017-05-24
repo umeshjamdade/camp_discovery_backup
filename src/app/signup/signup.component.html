@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <img src="assets/image/img01.png" class="signup-top-image"/>
+    <div class="col-md-6 signup-window-middle">
+      <div class="login-panel card panel-default">
+        <div class="card-block form-center signup-background">
+          <form [formGroup]="signupForm" role="form" class="signup-form-top" novalidate (submit)="signupUser(signupForm)">
+            <fieldset>
+              <div class="form-group">
+                <input formControlName="firstName" class="form-control signup-text-height" placeholder="First Name" name="firstname" type="text" [ngClass]="{'has-error': ((!signupForm.controls.firstName.valid)
+                           && (signupForm.controls.firstName.touched))}" >
+              </div>
+              <div class="form-group">
+                <input formControlName="lastName" class="form-control signup-text-height" placeholder="Last Name" name="lastname" type="text" [ngClass]="{'has-error': ((!signupForm.controls.lastName.valid)
+                           && (signupForm.controls.lastName.touched))}">
+              </div>
+              <div class="form-group">
+                <input formControlName="organization" class="form-control signup-text-height" placeholder="Organization" name="organization" type="text" [ngClass]="{'has-error': ((!signupForm.controls.organization.valid)
+                           && (signupForm.controls.organization.touched))}">
+              </div>
+              <div class="form-group">
+                <input formControlName="username" class="form-control signup-text-height" placeholder="Username" name="username" type="text" [ngClass]="{'has-error': ((!signupForm.controls.username.valid)
+                           && (signupForm.controls.username.touched))}">
+              </div>
+              <div class="form-group">
+                <input formControlName="email" class="form-control signup-text-height" placeholder="Email" name="email" type="email" [ngClass]="{'has-error': ((!signupForm.controls.email.valid)
+                           && (signupForm.controls.email.touched))}">
+              </div>
+              <div class="form-group">
+                <input formControlName="password" class="form-control signup-text-height" placeholder="Password" name="password" type="password" [ngClass]="{'has-error': ((!signupForm.controls.password.valid)
+                           && (signupForm.controls.password.touched))}">
+              </div>
+              <div class="form-group">
+                <input formControlName="confirm_password" class="form-control signup-text-height" placeholder="Confirm Password" name="confirm_password" type="password" value="" [ngClass]="{'has-error': ((signupForm.controls.password.value != signupForm.controls.confirm_password.value)
+                           && (signupForm.controls.confirm_password.touched))}">
+              </div>
+              <!-- Change this to a button or input when using this as a form -->
+              <button [disabled]="(!signupForm.valid) || (signupForm.controls.password.value != signupForm.controls.confirm_password.value)" type="submit" class="btn btn-lg btn-custom-css login-btn-custom-css signup-btn btn-block">Sign Up</button>
+              <div class="signup-text">
+                <span>Already have an account?</span><span class="signup-link"><a routerLink="/login">Sign In!</a></span>
+              </div>
+              <!--<button routerLink="/login" class="btn btn-lg btn-success btn-block">Login</button>-->
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

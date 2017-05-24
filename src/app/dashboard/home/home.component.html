@@ -1,0 +1,151 @@
+<div class="container-fluid">
+  <div class="col-lg-12">
+    <div class="card panel-default">
+      <div class="card-block panel-margin">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" style="top: 90px; left:1%">
+              <div class="circle" (click)="open(content)">+</div><br>
+              <div style="margin-left: 37px;">Add Child</div>
+            </div>
+          <div class="chart-space" *ngFor="let kidData of kidsData">
+            <div class="panel panel-default">
+              <div class="card card-size">
+                <canvas baseChart
+                        [data]="doughnutChartData"
+                        [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType"
+                        (chartHover)="chartHovereds($event)"
+                        (chartClick)="chartClickeds($event)"></canvas>
+              </div>
+            </div>
+            <div class="card-text">{{kidData.FirstName}}</div>
+          </div>
+      </div><br><br><br>
+    </div>
+      <div class="panel-margin" *ngFor="let groupData of groupsData">
+        <div class="card">
+          <div class="card-block panel-margin">
+                    <canvas baseChart height="400px"
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType"
+                            (chartHover)="chartHovered($event)"
+                            [colors]="colors"
+                            (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+        <div class="card-group-text">{{groupData.GroupName}}</div>
+      </div>
+      <div class="panel-margin">
+        <a ui-sref="signup">
+          <div class="col-lg-12">
+            <div class="add-group" (click)="open(group)">+</div><br>
+            <div style="text-align: center">Add group</div>
+          </div>
+        </a>
+      </div>
+  </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title" (click)="send()">Add Child</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ngb-tabset>
+          <ngb-tab title="Add New Kid" modal>
+            <ng-template ngbTabContent>
+              <form [formGroup]="addNewChildForm" class="form-center" role="form" novalidate (submit)="addChild()">
+                <fieldset>
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input formControlName="firstName" class="form-control" name="firstname" [ngClass]="{'has-error': ((!addNewChildForm.controls.firstName.valid)
+                           && (addNewChildForm.controls.firstName.touched))}" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input formControlName="lastName" class="form-control" name="lastname" [ngClass]="{'has-error': ((!addNewChildForm.controls.lastName.valid)
+                           && (addNewChildForm.controls.lastName.touched))}"  type="text">
+                  </div>
+                  <div class="form-group">
+                    <label>Nick Name</label>
+                    <input formControlName="nickName" class="form-control" name="nickname" [ngClass]="{'has-error': ((!addNewChildForm.controls.nickName.valid)
+                           && (addNewChildForm.controls.nickName.touched))}"  type="text">
+                  </div>
+                  <div class="form-group">
+                    <label>Date Of Birth</label>
+                    <div class="input-group">
+                      <input formControlName="date" class="form-control" placeholder="yyyy-mm-dd"
+                             [ngClass]="{'has-error': ((!addNewChildForm.controls.date.valid)
+                           && (addNewChildForm.controls.date.touched))}" name="date" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-addon" (click)="d.toggle()" >
+                        <img src="assets/image/Calendar-2.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                      </div>
+                    </div>
+                  </div><br>
+                  <!-- Change this to a button or input when using this as a form -->
+                  <button [disabled]="!addNewChildForm.valid" type="submit" class="btn btn-lg btn-primary btn-block">Add</button>
+                </fieldset>
+              </form>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>Add Existing Kid</ng-template>
+            <ng-template ngbTabContent class="form-center">
+              <form class="form-center" [formGroup]="addExistingChildForm" role="form" novalidate (submit)="addExistingChild()">
+                <fieldset>
+                  <div class="form-group">
+                    <label>Token Number</label>
+                    <input formControlName="token" [ngClass]="{'has-error': ((!addExistingChildForm.controls.token.valid)
+                           && (addExistingChildForm.controls.token.touched))}" class="form-control" name="token" type="text">
+                  </div>
+                  <br>
+                  <!-- Change this to a button or input when using this as a form -->
+                  <button [disabled]="!addExistingChildForm.valid" type="submit" class="btn btn-lg btn-primary btn-block">Add</button>
+                </fieldset>
+              </form>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>      </div>
+    </ng-template>
+    <ng-template #group let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Group</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="groupForm" class="form-center" role="form" novalidate>
+          <fieldset>
+            <div class="form-group">
+              <label>Group Name</label>
+              <input formControlName="groupName" [ngClass]="{'has-error': ((!groupForm.controls.groupName.valid)
+                           && (groupForm.controls.groupName.touched))}" class="form-control" name="groupName" type="text">
+            </div>
+            <div class="form-group">
+              <label>Teacher Name</label>
+              <input formControlName="teacherName" [ngClass]="{'has-error': ((!groupForm.controls.teacherName.valid)
+                           && (groupForm.controls.teacherName.touched))}" class="form-control" name="teacherName" type="text">
+            </div>
+            <div class="form-group dropdown-css">
+              <label>Kids Name</label>
+              <input id="typeahead-format" formControlName="kidsName" type="text" name="kidsName" class="form-control" placeholder="Type here and press enter to select kid" [(ngModel)]="model" [ngbTypeahead]="search" [resultFormatter]="formatter" (keyup.enter)="addTag()" />
+              <tag-input aria-disabled="true"
+                placeholder="" class="tag-input-border"
+                [model]="tagItems"
+                (tagRemoved)="onTagRemoved($event)"
+              ></tag-input>
+            </div>
+            <br>
+            <!-- Change this to a button or input when using this as a form -->
+            <button [disabled]="!groupForm.valid" (click)="addGroup()" type="submit" class="btn btn-lg btn-primary btn-block">Add</button>
+          </fieldset>
+        </form>
+      </div>
+    </ng-template>
+</div>
+</div>

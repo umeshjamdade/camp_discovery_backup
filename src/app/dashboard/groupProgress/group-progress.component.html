@@ -1,0 +1,116 @@
+<div class="container-fluid">
+  <br>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <div class="card panel-default">
+        <div class="card-header">
+          <h2>Harry's Progress</h2>
+        </div><br>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <select class="form-control">
+                <option disabled selected>Colors</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="col-lg-3">
+              <select class="form-control">
+                <option disabled selected>Matching Identicals</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="col-lg-3">
+              <select class="form-control">
+                <option disabled selected>Past Month</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div><br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10">
+              <canvas baseChart
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [colors]="lineChartColors"
+                      [legend]="lineChartLegend"
+                      [chartType]="lineChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div><br><br>
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+              <div>
+                <select class="form-control">
+                  <option disabled selected>Mastered</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div><br><br>
+              <div>
+                <table class="table table-striped table-bordered table-hover">
+                  <tbody>
+                  <tr>
+                    <td>Yellow</td>
+                    <td>10.2.16</td>
+                  </tr>
+                  <tr>
+                    <td>Greeen</td>
+                    <td>4.5.16</td>
+                  </tr>
+                  <tr>
+                    <td>Blue</td>
+                    <td>10.2.16</td>
+                  </tr>
+                  <tr>
+                    <td>Red</td>
+                    <td>1.2.16</td>
+                  </tr>
+                  <tr>
+                    <td>Orange</td>
+                    <td>10.2.16</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div> <div class="col-lg-1"></div>
+            <div class="col-lg-3">
+              <div style="text-align:center"> Total Targets </div><br>
+              <canvas baseChart
+                      [data]="doughnutChartData"
+                      [labels]="doughnutChartLabels"
+                      [chartType]="doughnutChartType"
+                      (chartHover)="chartHovereds($event)"
+                      (chartClick)="chartClickeds($event)"></canvas>
+
+              <div class="col-lg-12">
+
+                <button type="button" class="btn btn-lg btn-block btn-primary" ui-sref="dashboard.classProgress">Generate Report</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /.col-lg-12 -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </div>
+</div>
